@@ -1,4 +1,3 @@
-
 #
 # Docker file to create an image that contains enough software to listen to events on the 433,92 Mhz band,
 # filter these and publish them to a MQTT broker.
@@ -13,7 +12,7 @@
 # 
 # docker run --name rtl_433 -d -e MQTT_HOST=<mqtt-broker.example.com>   --privileged -v /dev/bus/usb:/dev/bus/usb  <image>
 
-FROM ubuntu:16.04
+FROM ubuntu:19.10
 MAINTAINER Nick Adams
 
 LABEL Description="This image is used to start a script that will monitor for events on 433,92 Mhz" Vendor="MarCoach" Version="1.0"
@@ -44,16 +43,6 @@ RUN git clone https://github.com/merbanan/rtl_433.git \
   && make install 
 
 #
-# Define an environment variable
-# 
-# Use this variable when creating a container to specify the MQTT broker host.
-ENV TZ=""
-ENV MQTT_HOST=""
-ENV MQTT_USER=""
-ENV MQTT_PASS=""
-ENV MQTT_TOPIC=""
-
-#
 # When running a container this script will be executed
 #
 ENTRYPOINT ["/scripts/rtl2mqtt.sh"]
@@ -61,5 +50,5 @@ ENTRYPOINT ["/scripts/rtl2mqtt.sh"]
 #
 # Copy my script and make it executable
 #
-COPY rtl2mqtt.sh /scripts/rtl2mqtt.sh
+COPY ./rtl2mqtt.sh /scripts/rtl2mqtt.sh
 RUN chmod +x /scripts/rtl2mqtt.sh
