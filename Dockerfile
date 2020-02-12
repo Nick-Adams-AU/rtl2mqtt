@@ -14,7 +14,7 @@
 # docker run --name rtl_433 -d -e MQTT_HOST=<mqtt-broker.example.com>   --privileged -v /dev/bus/usb:/dev/bus/usb  <image>
 
 FROM ubuntu:16.04
-MAINTAINER Marco Verleun
+MAINTAINER Nick Adams
 
 LABEL Description="This image is used to start a script that will monitor for events on 433,92 Mhz" Vendor="MarCoach" Version="1.0"
 
@@ -63,8 +63,3 @@ ENTRYPOINT ["/scripts/rtl2mqtt.sh"]
 #
 COPY rtl2mqtt.sh /scripts/rtl2mqtt.sh
 RUN chmod +x /scripts/rtl2mqtt.sh
-
-#
-# The script is in a volume. This makes changes persistent and allows you modify it.
-#
-VOLUME ["/scripts"]
