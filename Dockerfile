@@ -12,7 +12,7 @@
 # 
 # docker run --name rtl_433 -d -e MQTT_HOST=<mqtt-broker.example.com>   --privileged -v /dev/bus/usb:/dev/bus/usb  <image>
 
-FROM ubuntu:19.10
+FROM ubuntu:18.04
 MAINTAINER Nick Adams
 
 LABEL Description="This image is used to start a script that will monitor for events on 433,92 Mhz" Vendor="MarCoach" Version="1.0"
@@ -45,10 +45,10 @@ RUN git clone https://github.com/merbanan/rtl_433.git \
 #
 # When running a container this script will be executed
 #
-ENTRYPOINT ["/scripts/rtl2mqtt.sh"]
+ENTRYPOINT ["bash", "/opt/rtl2mqtt.sh"]
 
 #
 # Copy my script and make it executable
 #
-COPY ./rtl2mqtt.sh /scripts/rtl2mqtt.sh
-RUN chmod +x /scripts/rtl2mqtt.sh
+COPY rtl2mqtt.sh /opt/rtl2mqtt.sh
+RUN chmod +x /opt/rtl2mqtt.sh
