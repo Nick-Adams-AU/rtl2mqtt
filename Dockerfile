@@ -12,10 +12,13 @@
 # 
 # docker run --name rtl_433 -d -e MQTT_HOST=<mqtt-broker.example.com>   --privileged -v /dev/bus/usb:/dev/bus/usb  <image>
 
-FROM ubuntu:18.04
+#FROM ubuntu:18.04
+FROM ubuntu:20.04
 MAINTAINER Nick Adams
 
 LABEL Description="This image is used to start a script that will monitor for events on 433,92 Mhz" Vendor="MarCoach" Version="1.0"
+
+ENV DEBIAN_FRONTEND=noninteractive
 
 #
 # First install software packages needed to compile rtl_433 and to publish MQTT events
